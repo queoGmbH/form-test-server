@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="utf-8">
+    <title>Form Testserver</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+    </style>
+    <h1>Form Testserver</h1>
+    <h2>de</h2>
+    <p>Dieser Server ist zum Testen vom Formularen gedacht. Die Formelemente werden auf der Console geloggt. hochgeladene Dateien werden in /uploads/ gespeichert.
+    Alte Dateien werden überschrieben.
+    </p>
+    <p>Zur Benutzung muss ein POST Requast auf "/" abgesetzt werden. Cors ist aktiviert. Es sollte auch von anderen Origins gepostet werden können.</p>
+    <code>&lt;form action="http://localhost:4000/" method="POST" enctype="multipart/form-data"&gt;...&lt;/form&gt;</code>
+    <p>So kann es aussehen.</p>
+    <h2>en</h2>
+    <p>
+    This server is made to test forms. The form data get logged to the console. The Files get saved in /uploads/ . New files with the same name override the old ones.
+    </p>
+    <p>
+    Make a npm install && node app.js and put a POST request to localhost:4000 . Cors is enabled so you could post from every origin.   
+    </p>
+    <code>&lt;form action="http://localhost:4000/" method="POST" enctype="multipart/form-data"&gt;...&lt;/form&gt;</code>
+    
+</html>
