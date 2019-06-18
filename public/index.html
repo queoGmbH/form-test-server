@@ -15,6 +15,7 @@
     <p>Zur Benutzung muss ein POST Requast auf "/" abgesetzt werden. Cors ist aktiviert. Es sollte auch von anderen Origins gepostet werden können.</p>
     <code>&lt;form action="http://localhost:4000/" method="POST" enctype="multipart/form-data"&gt;...&lt;/form&gt;</code>
     <p>So kann es aussehen.</p>
+    <p>Ein POST auf "/" gibt abwechselnd ein json mit status:"ok" und status:"fail" zurück. Ein POST auf "/ok" gibt immer ok, und "/fail" immer fail.
     <h2>en</h2>
     <p>
     This server is made to test forms. The form data get logged to the console. The Files get saved in /uploads/ . New files with the same name override the old ones.

@@ -1,51 +1,55 @@
-const koa = require('koa');
-const app = koa();
-const bodyParser = require('koa-body');
-const router = require('koa-router');
-const pjson = require('./package.json');
-const cors = require('koa-cors');
-const _ = router();
+const express = require('express');
+const formidable = require('express-formidable');
+const appRootPath = require('app-root-path');
+const packageJson = require('./package.json');
 const fs = require("fs");
+const path = require('path');
 
-app.use(cors());
+const app = express();
 
-app.use(bodyParser({
-    formidable:{uploadDir: './uploads'},
-    multipart: true,
-    urlencoded: true
-}));
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
-app.use(_.routes());
+app.use(formidable());
 
-_.get('/', get);
-_.post('/', handleForm);
+app.get('/', function (req,res) {
+    res.sendFile(path.join(appRootPath.toString(),"/public/index.html"));
+})
 
-const indexHtml = fs.readFileSync("./public/index.html","utf8");
+// every second post request will return a 500, the other one a 200, for testing what will happen when the 
+// server is down
+let serverHealth = true;
+
+app.post('/',function (req,res) {
+        console.log("post from ", req.headers.host);
+        console.log("request fields", req.fields);
+        //console.log("request files", req.files);
+        for (let file in req.files) {
+            let tempName = req.files[file].path;
+            let realName = req.files[file].name;
+            console.log("request file",req.files[file].name)
+            fs.renameSync(tempName,'./uploads/'+realName);
+        }
+            
+        // To give the frontend time to show a spinner, the res get delayed.
+        setTimeout( function () {
+            if (serverHealth) {
+                res.sendStatus(200).end();
+            } else {
+                res.sendStatus(500).end();
+            }
+            serverHealth = !serverHealth;
+
+        },1000);
+})
 
 
-app.listen(pjson.port);
+app.listen(packageJson.port);
 
-function *get(){
-    console.log("get",this.request.header.host+this.request.url);
-    this.type = 'html';
-    this.body = indexHtml;
-}
-
-function *handleForm(){
-    console.log("post from ", this.request.header.host);
-    console.log("request fields", this.request.body.fields);
-    console.log("request files", this.request.body.files);
-    for (let file in this.request.body.files) {
-        let tempName = this.request.body.files[file].path;
-        let realName = this.request.body.files[file].name;
-
-        fs.rename(tempName,'./uploads/'+realName);
-    }
-
-    this.redirect(this.request.header.host)
-}
-
-console.log(getTime()+" server running at :"+pjson.port);
+console.log(getTime()+" server running at :"+packageJson.port);
 
 function getTime () {
     const date = new Date();

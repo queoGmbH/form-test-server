@@ -8,14 +8,7 @@
   },
   "author": "Matthias Hermsdorf",
   "license": "ISC",
-  "devDependencies": {
-    "koa": "^1.2.4",
-    "koa-body": "^1.6.0",
-    "koa-compress": "^1.0.9",
-    "koa-cors": "0.0.16",
-    "koa-router": "^5.4.0",
-    "koa-static": "^2.0.0"
-  },
   "port": "4000",
-  "dependencies": {}
+  "dependencies": {
+  }
 }
