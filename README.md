@@ -23,11 +23,9 @@ Cors is enabled so you could post from every origin.
 
 ## Sample Code for a form
 
-`
-
+```html
 <form action="http://localhost:4000/" method="POST" enctype="multipart/form-data">
     <input type="file" name="file" />
     <button type="submit">submit to localhost:4000/</button>
 </form>
- 
-`
+```
