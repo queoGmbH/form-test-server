@@ -15,7 +15,7 @@ app.use(function(req, res, next) {
 
 app.use(formidable());
 
-app.get('/', function (req,res) {
+app.get('*', function (req,res) {
     res.sendFile(path.join(appRootPath.toString(),"/public/index.html"));
 })
 
@@ -23,7 +23,7 @@ app.get('/', function (req,res) {
 // server is down
 let serverHealth = true;
 
-app.post('/',function (req,res) {
+app.post('*',function (req,res) {
         console.log("post from ", req.headers.host);
         console.log("request fields", req.fields);
         //console.log("request files", req.files);
@@ -36,12 +36,16 @@ app.post('/',function (req,res) {
             
         // To give the frontend time to show a spinner, the res get delayed.
         setTimeout( function () {
-            if (serverHealth) {
-                res.sendStatus(200).end();
-            } else {
-                res.sendStatus(500).end();
+            switch (req.url) {
+                case "ok": res.sendStatus(200).end(); break;
+                case "fail": res.sendStatus(500).end(); break;
+                default: if (serverHealth) {
+                    res.sendStatus(200).end();
+                } else {
+                    res.sendStatus(500).end();
+                }
+                serverHealth = !serverHealth;
             }
-            serverHealth = !serverHealth;
 
         },1000);
 })
