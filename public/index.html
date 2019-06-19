@@ -5,24 +5,83 @@
     <style>
         body {
             font-family: sans-serif;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h2 {
+            margin: 40px 0 10px;
+        }
+
+        form,
+        pre {
+            padding: 10px;
+            background: #eee;
+        }
+
+        pre {
+            background: rgb(223, 223, 252);
+        }
+
+        input {
+            margin-bottom: 10px;
         }
     </style>
-    <h1>Form Testserver</h1>
-    <h2>de</h2>
-    <p>Dieser Server ist zum Testen vom Formularen gedacht. Die Formelemente werden auf der Console geloggt. hochgeladene Dateien werden in /uploads/ gespeichert.
-    Alte Dateien werden überschrieben.
-    </p>
-    <p>Zur Benutzung muss ein POST Requast auf "/" abgesetzt werden. Cors ist aktiviert. Es sollte auch von anderen Origins gepostet werden können.</p>
-    <code>&lt;form action="http://localhost:4000/" method="POST" enctype="multipart/form-data"&gt;...&lt;/form&gt;</code>
-    <p>So kann es aussehen.</p>
-    <p>Ein POST auf "/" gibt abwechselnd ein json mit status:"ok" und status:"fail" zurück. Ein POST auf "/ok" gibt immer ok, und "/fail" immer fail.
-    <h2>en</h2>
+
+    <h1>Form Test Server</h1>
     <p>
-    This server is made to test forms. The form data get logged to the console. The Files get saved in /uploads/ . New files with the same name override the old ones.
+        This server is made to test forms. The form data get logged to the console. The Files get saved in /uploads/ .
+        New files with the same name override the old ones.
     </p>
+
+    <h2>Routes</h2>
     <p>
-    Make a npm install && node app.js and put a POST request to localhost:4000 . Cors is enabled so you could post from every origin.   
+        Sometimes servers have problemes and this should get tested.
     </p>
-    <code>&lt;form action="http://localhost:4000/" method="POST" enctype="multipart/form-data"&gt;...&lt;/form&gt;</code>
-    
+    <ul>
+        <li>Post to / and get alternatly a 200 or 500 statuscode back</li>
+        <li>Post to /ok and get a 200</li>
+        <li>Post to /fail and get a 500</li>
+    </ul>
+    <p>The formdata gets logged on all routes equaly.</p>
+
+    <h2>Install</h2>
+    <p>
+        Make a npm install && node app.js and put a POST request to localhost:4000 .
+    </p>
+
+    <h2>CORS</h2>
+    <p>Cors is enabled so you could post from every origin.</p>
+
+    <h2>Sample Code for a form</h2>
+    <code>
+        <pre>
+&lt;form action="http://localhost:4000/" method="POST" enctype="multipart/form-data"&gt;
+    &lt;input type="file" name="file" /&gt;
+    &lt;button type="submit"&gt;submit to localhost:4000/&lt;/button&gt;
+&lt;/form&gt;
+        </pre>
+    </code>
+
+    <h2>Sample Form send to localhost:4000/</h2>
+    <form action="http://localhost:4000/" method="POST" enctype="multipart/form-data">
+
+        <input type="file" name="file" /><br>
+        <button type="submit">submit to localhost:4000/</button>
+    </form>
+
+    <h2>Sample Form send to localhost:4000/ok</h2>
+    <form action="http://localhost:4000/ok" method="POST" enctype="multipart/form-data">
+
+        <input type="file" name="file" /><br>
+        <button type="submit">submit to localhost:4000/ok</button>
+    </form>
+
+    <h2>Sample Form send to localhost:4000/fail</h2>
+    <form action="http://localhost:4000/fail" method="POST" enctype="multipart/form-data">
+
+        <input type="file" name="file" /><br>
+        <button type="submit">submit to localhost:4000/fail</button>
+    </form>
+
 </html>
