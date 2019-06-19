@@ -6,9 +6,10 @@ This server is made to test forms. The form data get logged to the console. The 
 
 Sometimes servers have problemes and this should get tested.
 
-*   Post to / and get alternatly a 200 or 500 statuscode back
-*   Post to /ok and get a 200
-*   Post to /fail and get a 500
+*   GET to * to get an infopage
+*   POST to / and get alternatly a 200 or 500 statuscode back
+*   POST to /ok and get a 200
+*   POST to /fail and get a 500
 
 The formdata gets logged on all routes equaly.
 
